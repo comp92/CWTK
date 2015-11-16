@@ -8,31 +8,12 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-public class TextBox implements KeyListener, MouseListener {
+public class TextBox extends Widget implements KeyListener, MouseListener {
 	private String text = "";
-	private int x, y, width, height;
-	private boolean enabled, focused = false;
-	private String title = "";
-	private int id;
-//	private int curposX = 0, curposY = 0;
 	private int blinkamt = 30;
 	private int blink = blinkamt;
 	public TextBox(String title, int id, boolean enabled, int x, int y, int width, int height) {
-		this.x = x;
-		this.y = y;
-		this.width = width;
-		this.height = height;
-		this.enabled = enabled;
-		this.title = title;
-		this.id = id;
-	}
-	
-	public boolean isFocused() {
-		return focused;
-	}
-	
-	public void setFocused(boolean b) {
-		this.focused = b;
+		super(x, y, width, height, enabled, title, id);
 	}
 	
 	public String getText() {
@@ -43,71 +24,6 @@ public class TextBox implements KeyListener, MouseListener {
 	public void setText(String text) {
 		this.text = text;
 	}
-
-
-	public int getX() {
-		return x;
-	}
-
-
-	public void setX(int x) {
-		this.x = x;
-	}
-
-
-	public int getY() {
-		return y;
-	}
-
-
-	public void setY(int y) {
-		this.y = y;
-	}
-
-
-	public int getWidth() {
-		return width;
-	}
-
-
-	public void setWidth(int width) {
-		this.width = width;
-	}
-
-
-	public int getHeight() {
-		return height;
-	}
-
-
-	public void setHeight(int height) {
-		this.height = height;
-	}
-
-
-	public boolean isEnabled() {
-		return enabled;
-	}
-
-
-	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
-	}
-
-
-	public String getTitle() {
-		return title;
-	}
-
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-
-	public int getId() {
-		return id;
-	}
 	
 	public void paint(Graphics g) {
 		g.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));
@@ -116,23 +32,23 @@ public class TextBox implements KeyListener, MouseListener {
 		} else {
 			g.setColor(Color.DARK_GRAY);
 		}
-		g.fillRect(x, y, width, height);
+		g.fillRect(getX(), getY(), getWidth(), getHeight());
 		g.setColor(Color.GREEN);
 		if(isFocused()) {
 			g.setColor(Color.CYAN);
 		}
-		g.drawRect(x,y,width,height);
+		g.drawRect(getX(), getY(), getWidth(), getHeight());
 		g.setColor(Color.BLACK);
-		int tempx = x + 3;
-		int tempy = y + 12;
+		int tempx = getX() + 3;
+		int tempy = getY() + 12;
 		for(char c : text.toCharArray()) {
 			if(c == '\n') {
 					tempy += 10;
-					tempx = x + 3;
+					tempx = getX() + 3;
 			} else {
-				if(tempx > x+width-14) {
+				if(tempx > getX()+getWidth()-14) {
 					tempy += 10;
-					tempx = x + 3;
+					tempx = getX() + 3;
 				}
 				g.drawString(String.valueOf(c), tempx, tempy);
 				tempx += 7;
@@ -166,36 +82,21 @@ public class TextBox implements KeyListener, MouseListener {
 				String currentText = getText();
 				if(!currentText.equals("")) {
 					currentText = currentText.substring(0, currentText.length()-1);
-//					curposX--;
-//					if(currentText.contains("\n")) {
-//						if(currentText.substring(currentText.length()-1).equals("\n")) {
-//							curposY--;
-//						}
-//					}
 				}
 				setText(currentText);
 			}
-			//TODO
-//			else if(e.getKeyCode() == KeyEvent.VK_LEFT) {
-//				if(curposX!=0) curposX--;
-//			} else if(e.getKeyCode() == KeyEvent.VK_RIGHT) {
-//				if(curposX<getText().length()) {
-//					curposX++;
-//				}
-//			}
-			//if(tempx > x+width-14) {
 		}
 	}
 	
 	public void mouseClicked(MouseEvent e) {
-		if(e.getX()>=x && e.getX()<=x+width) {
-			if(e.getY()>=y && e.getY()<=y+height) {
-				focused=true;
+		if(e.getX()>=getX() && e.getX()<=getX()+getWidth()) {
+			if(e.getY()>=getY() && e.getY()<=getY()+getHeight()) {
+				setFocused(true);
 			} else {
-				focused=false;
+				setFocused(false);
 			}
 		} else {
-			focused=false;
+			setFocused(false);
 		}
 	}
 	
