@@ -1,5 +1,6 @@
 package me.daniel.cwtk.widgets;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,6 +11,8 @@ public abstract class Widget {
 	private int x, y, width, height;
 	private boolean enabled, focused = false;
 	private String title = "";
+	private Color backgroundColor = new Color(235,235,235,120), backgroundHoveredColor = new Color(185,185,185,120), borderFocusedColor = Color.BLUE, textDisabledColor = Color.RED, textHoveredColor = Color.ORANGE,
+				  textColor = Color.BLACK, backgroundNotFocused = Color.DARK_GRAY, borderNotFocused = Color.GREEN;
 	private int id;
 	//A list containing classes that extend (or implement) the interface WidgetListener.
 	private List<Class<? extends WidgetListener>> listeners = new ArrayList<Class<? extends WidgetListener>>();
@@ -22,6 +25,70 @@ public abstract class Widget {
 		this.enabled = enabled;
 		this.title = text;
 		this.id = id;
+	}
+	
+	public void setBorderNotFocusedColor(Color c) {
+		borderNotFocused = c;
+	}
+	
+	public Color getBorderNotfocusedColor() {
+		return borderNotFocused;
+	}
+	
+	public void setBackgroundNotfocusedColor(Color c) {
+		backgroundNotFocused = c;
+	}
+	
+	public Color getBackgroundNotfocusedColor() {
+		return backgroundNotFocused;
+	}
+	
+	public Color getTextColor() {
+		return textColor;
+	}
+	
+	public void setTextColor(Color c) {
+		textColor = c;
+	}
+	
+	public Color getTextHoveredColor() {
+		return textHoveredColor;
+	}
+	
+	public void setTextHoveredColor(Color c) {
+		textHoveredColor = c;
+	}
+	
+	public Color getTextDisabledColor() {
+		return textDisabledColor;
+	}
+	
+	public void setTextDisabledColor(Color c) {
+		textDisabledColor = c;
+	}
+	
+	public Color getBackgroundColor() {
+		return backgroundColor;
+	}
+	
+	public void setBackgroundColor(Color c) {
+		backgroundColor = c;
+	}
+	
+	public Color getBackgroundHoveredColor() {
+		return backgroundHoveredColor;
+	}
+	
+	public void setBackgroundHoveredColor(Color c) {
+		backgroundHoveredColor = c;
+	}
+	
+	public Color getBorderColor() {
+		return borderFocusedColor;
+	}
+	
+	public void setBorderColor(Color c) {
+		borderFocusedColor = c;
 	}
 	
 	public int getX() {
@@ -69,9 +136,6 @@ public abstract class Widget {
 	}
 
 	public void setFocused(boolean focused) {
-		for(Class<? extends WidgetListener> c : getListeners()) {
-			
-		}
 		this.focused = focused;
 	}
 

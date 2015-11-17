@@ -1,6 +1,5 @@
 package me.daniel.cwtk.widgets;
 
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
@@ -28,17 +27,17 @@ public class TextBox extends Widget implements KeyListener, MouseListener {
 	public void paint(Graphics g) {
 		g.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));
 		if(isFocused()) {
-			g.setColor(Color.LIGHT_GRAY);
+			g.setColor(getBackgroundColor());
 		} else {
-			g.setColor(Color.DARK_GRAY);
+			g.setColor(getBackgroundNotfocusedColor());
 		}
 		g.fillRect(getX(), getY(), getWidth(), getHeight());
-		g.setColor(Color.GREEN);
+		g.setColor(getBorderNotfocusedColor());
 		if(isFocused()) {
-			g.setColor(Color.CYAN);
+			g.setColor(getBorderColor());
 		}
 		g.drawRect(getX(), getY(), getWidth(), getHeight());
-		g.setColor(Color.BLACK);
+		g.setColor(getTextColor());
 		int tempx = getX() + 3;
 		int tempy = getY() + 12;
 		for(char c : text.toCharArray()) {

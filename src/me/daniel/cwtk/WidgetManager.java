@@ -17,18 +17,20 @@ public class WidgetManager extends Canvas implements Runnable {
 	private List<Button> buttons = new ArrayList<Button>();
 	private List<TextBox> textboxes = new ArrayList<TextBox>();
 	
-	public void newButton(String name, int id, boolean enabled, int x, int y, int width, int height) {
+	public Button newButton(String name, int id, boolean enabled, int x, int y, int width, int height) {
 		Button b = new Button(name, id, enabled, x, y, width, height);
 		buttons.add(b);
 		addMouseListener(b);
 		addMouseMotionListener(b);
+		return b;
 	}
 	
-	public void newTextBox(String title, int id, boolean enabled, int x, int y, int width, int height) {
+	public TextBox newTextBox(String title, int id, boolean enabled, int x, int y, int width, int height) {
 		TextBox tb = new TextBox(title, id, enabled, x, y, width, height);
 		textboxes.add(tb);
 		addMouseListener(tb);
 		addKeyListener(tb);
+		return tb;
 	}
 	
 	public void paint(Graphics g) {
