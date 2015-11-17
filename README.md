@@ -18,5 +18,4 @@ Reference the cwtk.jar file in your project, create an instance of the WidgetMan
 * Listboxes
 * Radio buttons
 * Checkboxes
-* ~Implement configuration methods for all widgets (setForegroundColor, setFont, etc...)~
 * Implement an event API to allow for actual applications (Work in progress)
