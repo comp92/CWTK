@@ -74,6 +74,11 @@ public final class TextBox extends Widget implements KeyListener, MouseListener 
 		if(blink < -blinkamt) blink = blinkamt;
 	}
 	
+	/**
+	* Found this method here:
+	* http://stackoverflow.com/a/418560
+	* All credit to them ^
+	**/
 	public static boolean isPrintableChar(char c) {
 		Character.UnicodeBlock block = Character.UnicodeBlock.of(c);
 		return (!Character.isISOControl(c)) && c != KeyEvent.CHAR_UNDEFINED && block != null && block != Character.UnicodeBlock.SPECIALS;
