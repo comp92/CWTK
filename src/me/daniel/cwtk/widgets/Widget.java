@@ -1,6 +1,7 @@
 package me.daniel.cwtk.widgets;
 
 import java.awt.Color;
+import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +27,8 @@ public abstract class Widget {
 		this.title = text;
 		this.id = id;
 	}
+	
+	public void paint(Graphics g) {}
 	
 	public void setBorderNotFocusedColor(Color c) {
 		borderNotFocused = c;

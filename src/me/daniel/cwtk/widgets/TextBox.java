@@ -101,6 +101,8 @@ public class TextBox extends Widget implements KeyListener, MouseListener {
 					currentText = currentText.substring(0, currentText.length()-1);
 				}
 				setText(currentText);
+			} else if(e.getKeyChar() == KeyEvent.VK_ESCAPE) {
+				setText("");
 			}
 		}
 	}

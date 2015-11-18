@@ -27,7 +27,7 @@ public class Checkbox extends Widget implements MouseListener {
 	public void paint(Graphics g) {
 		g.setColor(getBackgroundHoveredColor());
 		g.fillRect(getX(), getY(), getWidth(), getHeight());
-		g.setColor(getBorderColor());
+		g.setColor(getBorderNotfocusedColor());
 		g.drawRect(getX(), getY(), getWidth(), getHeight());
 		if(isChecked()) {
 			g.setColor(getTextHoveredColor());

@@ -33,11 +33,11 @@ public class Button extends Widget implements MouseListener, MouseMotionListener
 	}
 
 	public void paint(Graphics g) {
+		g.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));
 		if(!hovered) {
 			g.setColor(getBackgroundColor());
 			g.fillRect(getX(), getY(), getWidth(), getHeight());
 			g.drawRect(getX(),getY(),getWidth(),getHeight());
-			g.setFont(new Font(Font.SERIF, Font.BOLD, 12));
 		} else {
 			g.setColor(getBackgroundHoveredColor());
 			g.fillRect(getX(), getY(), getWidth(), getHeight());
@@ -45,7 +45,6 @@ public class Button extends Widget implements MouseListener, MouseMotionListener
 			g.drawRect(getX(), getY(), getWidth(), getHeight());
 			g.setColor(new Color(50,50,125,50));
 			g.fillRect(getX(), getY(), getWidth(), getHeight());
-			g.setFont(new Font(Font.SERIF, Font.BOLD, 12));
 		}
 		if(!isEnabled()) {
 			g.setColor(getTextDisabledColor());
