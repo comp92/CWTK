@@ -18,4 +18,4 @@ Reference the cwtk.jar file in your project, create an instance of the WidgetMan
 (Note: Since this is still early in development, there is no prebuilt jar yet. This is due to the library still being very incomplete)
 
 ###TODO:
-* Radio buttons
+* Radio buttons (Work in progress)

@@ -11,7 +11,7 @@ import me.daniel.cwtk.widgets.events.EventType;
 import me.daniel.cwtk.widgets.events.WidgetEvent;
 import me.daniel.cwtk.widgets.events.WidgetListener;
 
-public class TextBox extends Widget implements KeyListener, MouseListener {
+public final class TextBox extends Widget implements KeyListener, MouseListener {
 	private String text = "";
 	private int blinkamt = 30;
 	private int blink = blinkamt;

@@ -8,7 +8,7 @@ import me.daniel.cwtk.widgets.events.EventType;
 import me.daniel.cwtk.widgets.events.WidgetEvent;
 import me.daniel.cwtk.widgets.events.WidgetListener;
 
-public class Checkbox extends Widget implements MouseListener {
+public final class Checkbox extends Widget implements MouseListener {
 	
 	private boolean checked = false;
 	

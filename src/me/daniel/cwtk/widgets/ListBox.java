@@ -58,7 +58,11 @@ public class ListBox extends Widget implements KeyListener, MouseListener {
 	
 	public void paint(Graphics g) {
 		g.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));
-		g.setColor(getBackgroundColor());
+		if(isFocused()) {
+			g.setColor(getBackgroundColor());
+		} else {
+			g.setColor(getBackgroundNotfocusedColor());
+		}
 		g.fillRect(getX(),getY(),getWidth(),getHeight());
 		if(isFocused()) {
 			g.setColor(getBorderColor());

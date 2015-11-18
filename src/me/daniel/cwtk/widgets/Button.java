@@ -11,7 +11,7 @@ import me.daniel.cwtk.widgets.events.EventType;
 import me.daniel.cwtk.widgets.events.WidgetEvent;
 import me.daniel.cwtk.widgets.events.WidgetListener;
 
-public class Button extends Widget implements MouseListener, MouseMotionListener {
+public final class Button extends Widget implements MouseListener, MouseMotionListener {
 	
 	private boolean hovered = false;
 	private boolean isPressed = false;

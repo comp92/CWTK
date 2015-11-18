@@ -7,6 +7,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +15,7 @@ import me.daniel.cwtk.widgets.Button;
 import me.daniel.cwtk.widgets.Checkbox;
 import me.daniel.cwtk.widgets.Label;
 import me.daniel.cwtk.widgets.ListBox;
+import me.daniel.cwtk.widgets.RadioButtonList;
 import me.daniel.cwtk.widgets.TextBox;
 import me.daniel.cwtk.widgets.Widget;
 
@@ -22,12 +24,23 @@ public class WidgetManager extends Canvas implements Runnable {
 	
 	private static final double VERSION = 0.58d;
 	
-	private List<Button> buttons = new ArrayList<>();
-	private List<TextBox> textboxes = new ArrayList<>();
-	private List<Checkbox> checkboxes = new ArrayList<>();
-	private List<ListBox> listboxes = new ArrayList<>();
-	private List<Widget> abstractWidgets = new ArrayList<>();
-	private List<Label> labels = new ArrayList<>();
+	private final List<Button> buttons = new ArrayList<>();
+	private final List<TextBox> textboxes = new ArrayList<>();
+	private final List<Checkbox> checkboxes = new ArrayList<>();
+	private final List<ListBox> listboxes = new ArrayList<>();
+	private final List<Widget> abstractWidgets = new ArrayList<>();
+	private final List<Label> labels = new ArrayList<>();
+	private final List<RadioButtonList> radiobuttons = new ArrayList<>();
+	
+	public RadioButtonList newRadioButtonList(String title, int id, boolean enabled, int x, int y, int width, int height, int numOptions) {
+		RadioButtonList rbl = new RadioButtonList(title, id, enabled, x, y, width, height, numOptions);
+		radiobuttons.add(rbl);
+		return rbl;
+	}
+	
+	public void removeRadioButtonList(RadioButtonList rbl) {
+		radiobuttons.remove(rbl);
+	}
 	
 	public Label newLabel(String name, int id, int x, int y) {
 		Label l = new Label(x, y, name, id, Color.WHITE);
@@ -53,7 +66,7 @@ public class WidgetManager extends Canvas implements Runnable {
 		buttons.remove(b);
 	}
 	
-	public void addWidget(Widget w, String name, int id, boolean enabled, int x, int y, int width, int height) {
+	public void addWidget(Widget w) {
 		abstractWidgets.add(w);
 		Class<?> widgetClass = w.getClass();
 		if(MouseListener.class.isAssignableFrom(widgetClass)) {
@@ -61,6 +74,23 @@ public class WidgetManager extends Canvas implements Runnable {
 		}
 		if(KeyListener.class.isAssignableFrom(widgetClass)) {
 			addKeyListener((KeyListener) w);
+		}
+		if(MouseMotionListener.class.isAssignableFrom(widgetClass)) {
+			addMouseMotionListener((MouseMotionListener) w);
+		}
+	}
+	
+	public void removeWidget(Widget w) {
+		abstractWidgets.remove(w);
+		Class<?> widgetClass = w.getClass();
+		if(MouseListener.class.isAssignableFrom(widgetClass)) {
+			removeMouseListener((MouseListener) w);
+		}
+		if(KeyListener.class.isAssignableFrom(widgetClass)) {
+			removeKeyListener((KeyListener) w);
+		}
+		if(MouseMotionListener.class.isAssignableFrom(widgetClass)) {
+			removeMouseMotionListener((MouseMotionListener) w);
 		}
 	}
 	
@@ -124,6 +154,10 @@ public class WidgetManager extends Canvas implements Runnable {
 		}
 		
 		for(Label b : labels) {
+			b.paint(g);
+		}
+		
+		for(RadioButtonList b : radiobuttons) {
 			b.paint(g);
 		}
 		

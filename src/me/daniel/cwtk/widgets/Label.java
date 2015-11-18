@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 
-public class Label extends Widget {
+public final class Label extends Widget {
 	
 	private Font font = new Font(Font.SERIF, Font.PLAIN, 12);
 	private Color color;
