@@ -15,6 +15,8 @@ import me.daniel.cwtk.widgets.TextBox;
 public class WidgetManager extends Canvas implements Runnable {
 	private static final long serialVersionUID = 1L;
 	
+	private static final double VERSION = 0.58d;
+	
 	private List<Button> buttons = new ArrayList<>();
 	private List<TextBox> textboxes = new ArrayList<>();
 	private List<Checkbox> checkboxes = new ArrayList<>();
@@ -86,6 +88,10 @@ public class WidgetManager extends Canvas implements Runnable {
 				
 			}
 		}
+	}
+	
+	public static String getInfo() {
+		return "CWTK version " + String.valueOf(VERSION) + " by Daniel Shaw";
 	}
 	
 }

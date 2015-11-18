@@ -66,6 +66,7 @@ public class Button extends Widget implements MouseListener, MouseMotionListener
 				WidgetEvent we = new WidgetEvent(EventType.MOUSEMOVE, this, e);
 				for(WidgetListener w : getListeners()) {
 					w.run(we);
+					if(we.isFinalCancelled()) break;
 				}
 				if(we.isCancelled()) return;
 				hovered=true;

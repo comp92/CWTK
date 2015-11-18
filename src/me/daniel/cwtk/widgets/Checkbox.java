@@ -44,6 +44,7 @@ public class Checkbox extends Widget implements MouseListener {
 				WidgetEvent we = new WidgetEvent(EventType.CLICK, this, e);
 				for(WidgetListener w : getListeners()) {
 					w.run(we);
+					if(we.isFinalCancelled()) break;
 				}
 				if(we.isCancelled()) return;
 				setChecked(!isChecked());

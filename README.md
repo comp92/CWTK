@@ -5,7 +5,7 @@ CWTK - or Comp's Widget Tool Kit - is a tool kit for creating commonly used GUI 
 
 ###What is provided:
 * Buttons
-* Textboxes (almost completed)
+* Textboxes
 * Listboxes (work in progress)
 * Radio button sets (todo)
 * Checkboxes

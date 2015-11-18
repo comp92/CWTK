@@ -15,8 +15,10 @@ public class TextBox extends Widget implements KeyListener, MouseListener {
 	private String text = "";
 	private int blinkamt = 30;
 	private int blink = blinkamt;
+	private int origheight = 0;
 	public TextBox(String title, int id, boolean enabled, int x, int y, int width, int height) {
 		super(x, y, width, height, enabled, title, id);
+		origheight = height;
 	}
 	
 	public String getText() {
@@ -44,6 +46,7 @@ public class TextBox extends Widget implements KeyListener, MouseListener {
 		g.setColor(getTextColor());
 		int tempx = getX() + 3;
 		int tempy = getY() + 12;
+		int maxheight = getHeight() + 10;
 		for(char c : text.toCharArray()) {
 			if(c == '\n') {
 					tempy += 10;
@@ -56,6 +59,13 @@ public class TextBox extends Widget implements KeyListener, MouseListener {
 				g.drawString(String.valueOf(c), tempx, tempy);
 				tempx += 7;
 			}
+			if(tempy > maxheight) {
+				setHeight(getHeight() + 10);
+				maxheight = getHeight() + 10;
+			} else if(tempy < origheight && maxheight > origheight) {
+				setHeight(origheight);
+				maxheight = getHeight() + 10;
+			}
 		}
 		blink--;
 		if(blink > 0) {
@@ -64,7 +74,7 @@ public class TextBox extends Widget implements KeyListener, MouseListener {
 		if(blink < -blinkamt) blink = blinkamt;
 	}
 	
-	private boolean isPrintableChar(char c) {
+	public static boolean isPrintableChar(char c) {
 		Character.UnicodeBlock block = Character.UnicodeBlock.of(c);
 		return (!Character.isISOControl(c)) && c != KeyEvent.CHAR_UNDEFINED && block != null && block != Character.UnicodeBlock.SPECIALS;
 	}
@@ -75,6 +85,7 @@ public class TextBox extends Widget implements KeyListener, MouseListener {
 			WidgetEvent we = new WidgetEvent(EventType.KEYPRESS, this, e);
 			for(WidgetListener w : getListeners()) {
 				w.run(we);
+				if(we.isFinalCancelled()) break;
 			}
 			if(we.isCancelled()) return;
 			blink = blinkamt;
@@ -98,9 +109,12 @@ public class TextBox extends Widget implements KeyListener, MouseListener {
 		if(!isEnabled()) return;
 		if(e.getX()>=getX() && e.getX()<=getX()+getWidth()) {
 			if(e.getY()>=getY() && e.getY()<=getY()+getHeight()) {
+				WidgetEvent we = new WidgetEvent(EventType.CLICK, this, e);
 				for(WidgetListener w : getListeners()) {
-					w.run(new WidgetEvent(EventType.CLICK, this, e));
+					w.run(we);
+					if(we.isFinalCancelled()) break;
 				}
+				if(we.isCancelled()) return;
 				setFocused(true);
 			} else {
 				setFocused(false);
@@ -113,7 +127,7 @@ public class TextBox extends Widget implements KeyListener, MouseListener {
 	public void keyTyped(KeyEvent e) {}
 	public void keyReleased(KeyEvent e) {}
 	public void mouseExited(MouseEvent e) {}
-	public void mouseEntered(MouseEvent arg0) {}
+	public void mouseEntered(MouseEvent e) {}
 	public void mousePressed(MouseEvent e) {}
 	public void mouseReleased(MouseEvent e) {}
 	
