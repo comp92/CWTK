@@ -9,13 +9,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import me.daniel.cwtk.widgets.Button;
+import me.daniel.cwtk.widgets.Checkbox;
 import me.daniel.cwtk.widgets.TextBox;
 
 public class WidgetManager extends Canvas implements Runnable {
 	private static final long serialVersionUID = 1L;
 	
-	private List<Button> buttons = new ArrayList<Button>();
-	private List<TextBox> textboxes = new ArrayList<TextBox>();
+	private List<Button> buttons = new ArrayList<>();
+	private List<TextBox> textboxes = new ArrayList<>();
+	private List<Checkbox> checkboxes = new ArrayList<>();
 	
 	public Button newButton(String name, int id, boolean enabled, int x, int y, int width, int height) {
 		Button b = new Button(name, id, enabled, x, y, width, height);
@@ -33,6 +35,13 @@ public class WidgetManager extends Canvas implements Runnable {
 		return tb;
 	}
 	
+	public Checkbox newCheckbox(String title, int id, boolean enabled, int x, int y, int width, int height) {
+		Checkbox b = new Checkbox(title, id, enabled, x, y, width, height);
+		checkboxes.add(b);
+		addMouseListener(b);
+		return b;
+	}
+	
 	public void paint(Graphics g) {
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, getWidth(), getHeight());
@@ -41,6 +50,10 @@ public class WidgetManager extends Canvas implements Runnable {
 		}
 		
 		for(TextBox b : textboxes) {
+			b.paint(g);
+		}
+		
+		for(Checkbox b : checkboxes) {
 			b.paint(g);
 		}
 	}
@@ -67,20 +80,12 @@ public class WidgetManager extends Canvas implements Runnable {
 	public void run() {
 		while(true) {
 			try {
-				pollWidgets();
 				repaint();
 				Thread.sleep(17);
 			} catch(InterruptedException e) {
 				
 			}
 		}
-	}
-	
-	public void pollWidgets() {
-		//TODO: Poll widgets
-//		for(Button b : buttons) {
-//			
-//		}
 	}
 	
 }

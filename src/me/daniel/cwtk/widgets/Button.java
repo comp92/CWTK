@@ -7,6 +7,10 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
+import me.daniel.cwtk.widgets.events.EventType;
+import me.daniel.cwtk.widgets.events.WidgetEvent;
+import me.daniel.cwtk.widgets.events.WidgetListener;
+
 public class Button extends Widget implements MouseListener, MouseMotionListener {
 	
 	private boolean hovered = false;
@@ -56,8 +60,14 @@ public class Button extends Widget implements MouseListener, MouseMotionListener
 	}
 
 	public void mouseMoved(MouseEvent e) {
+		if(!isEnabled()) return;
 		if(e.getX()>=getX() && e.getX()<=getX()+getWidth()) {
 			if(e.getY()>=getY() && e.getY()<=getY()+getHeight()) {
+				WidgetEvent we = new WidgetEvent(EventType.MOUSEMOVE, this, e);
+				for(WidgetListener w : getListeners()) {
+					w.run(we);
+				}
+				if(we.isCancelled()) return;
 				hovered=true;
 			} else {
 				hovered=false;
@@ -69,8 +79,14 @@ public class Button extends Widget implements MouseListener, MouseMotionListener
 	}
 
 	public void mouseClicked(MouseEvent e) {
+		if(!isEnabled()) return;
 		if(e.getX()>=getX() && e.getX()<=getX()+getWidth()) {
 			if(e.getY()>=getY() && e.getY()<=getY()+getHeight()) {
+				WidgetEvent we = new WidgetEvent(EventType.CLICK, this, e);
+				for(WidgetListener w : getListeners()) {
+					w.run(we);
+				}
+				if(we.isCancelled()) return;
 				isPressed=true;
 			}
 		}

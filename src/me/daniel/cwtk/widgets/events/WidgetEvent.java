@@ -1,17 +1,25 @@
 package me.daniel.cwtk.widgets.events;
 
+import java.awt.AWTEvent;
+
 import me.daniel.cwtk.widgets.Widget;
 
 //The parent class of all widget events
-public abstract class WidgetEvent {
+public class WidgetEvent {
 	
 	private boolean cancelled = false;
 	private Widget widget;
-	private String eventType = "Abstract Widget Event";
+	private AWTEvent parentEvent;
+	private EventType eventType = EventType.ABSTRACT;
 	
-	public WidgetEvent(String type, Widget source) {
+	public WidgetEvent(EventType type, Widget source, AWTEvent event) {
 		this.eventType = type;
 		this.widget = source;
+		this.parentEvent = event;
+	}
+	
+	public AWTEvent getParentEvent() {
+		return this.parentEvent;
 	}
 	
 	public void setCancelled(boolean b) {
@@ -26,7 +34,8 @@ public abstract class WidgetEvent {
 		return this.cancelled;
 	}
 	
-	public String getEventType() {
+	public EventType getEventType() {
 		return this.eventType;
 	}
+	
 }

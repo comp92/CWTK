@@ -7,6 +7,10 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import me.daniel.cwtk.widgets.events.EventType;
+import me.daniel.cwtk.widgets.events.WidgetEvent;
+import me.daniel.cwtk.widgets.events.WidgetListener;
+
 public class TextBox extends Widget implements KeyListener, MouseListener {
 	private String text = "";
 	private int blinkamt = 30;
@@ -66,15 +70,18 @@ public class TextBox extends Widget implements KeyListener, MouseListener {
 	}
 
 	public void keyPressed(KeyEvent e) {
+		if(!isEnabled()) return;
 		if(isFocused() && isEnabled()) {
+			WidgetEvent we = new WidgetEvent(EventType.KEYPRESS, this, e);
+			for(WidgetListener w : getListeners()) {
+				w.run(we);
+			}
+			if(we.isCancelled()) return;
 			blink = blinkamt;
 			if(isPrintableChar(e.getKeyChar())) {
 				this.setText(getText() + e.getKeyChar());
-//				curposX++;
 			} else if(e.getKeyChar() == '\n') {
 				this.setText(getText() + "\n");
-//				curposX=0;
-//				curposY++;
 			} else if(e.getKeyChar() == ' ') {
 				this.setText(getText() + " ");
 			} else if(e.getKeyChar() == '\b') {
@@ -88,8 +95,12 @@ public class TextBox extends Widget implements KeyListener, MouseListener {
 	}
 	
 	public void mouseClicked(MouseEvent e) {
+		if(!isEnabled()) return;
 		if(e.getX()>=getX() && e.getX()<=getX()+getWidth()) {
 			if(e.getY()>=getY() && e.getY()<=getY()+getHeight()) {
+				for(WidgetListener w : getListeners()) {
+					w.run(new WidgetEvent(EventType.CLICK, this, e));
+				}
 				setFocused(true);
 			} else {
 				setFocused(false);

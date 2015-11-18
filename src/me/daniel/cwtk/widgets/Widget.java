@@ -15,7 +15,7 @@ public abstract class Widget {
 				  textColor = Color.BLACK, backgroundNotFocused = Color.DARK_GRAY, borderNotFocused = Color.GREEN;
 	private int id;
 	//A list containing classes that extend (or implement) the interface WidgetListener.
-	private List<Class<? extends WidgetListener>> listeners = new ArrayList<Class<? extends WidgetListener>>();
+	private List<WidgetListener> listeners = new ArrayList<>();
 	
 	public Widget(int x, int y, int width, int height, boolean enabled, String text, int id) {
 		this.x = x;
@@ -151,15 +151,15 @@ public abstract class Widget {
 		return id;
 	}
 
-	public List<Class<? extends WidgetListener>> getListeners() {
+	public List<WidgetListener> getListeners() {
 		return this.listeners;
 	}
 	
-	public void addListener(Class<? extends WidgetListener> c) {
+	public void addListener(WidgetListener c) {
 		listeners.add(c);
 	}
 	
-	public void removeListener(Class<? extends WidgetListener> c) {
+	public void removeListener(WidgetListener c) {
 		listeners.remove(c);
 	}
 }

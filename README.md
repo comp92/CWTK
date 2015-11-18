@@ -8,7 +8,8 @@ CWTK - or Comp's Widget Tool Kit - is a tool kit for creating commonly used GUI 
 * Textboxes (almost completed)
 * Listboxes (work in progress)
 * Radio button sets (todo)
-* Checkboxes (todo)
+* Checkboxes
+* An event API (see example program TestWindow.java)
 
 ###How do I use this library?
 Reference the cwtk.jar file in your project, create an instance of the WidgetManager, and add as many widgets as you desire.
@@ -17,5 +18,3 @@ Reference the cwtk.jar file in your project, create an instance of the WidgetMan
 ###TODO:
 * Listboxes
 * Radio buttons
-* Checkboxes
-* Implement an event API to allow for actual applications (Work in progress)
