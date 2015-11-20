@@ -35,11 +35,13 @@ public class WidgetManager extends Canvas implements Runnable {
 	public RadioButtonList newRadioButtonList(String title, int id, boolean enabled, int x, int y, int width, int height, int numOptions) {
 		RadioButtonList rbl = new RadioButtonList(title, id, enabled, x, y, width, height, numOptions);
 		radiobuttons.add(rbl);
+		addMouseListener(rbl);
 		return rbl;
 	}
 	
 	public void removeRadioButtonList(RadioButtonList rbl) {
 		radiobuttons.remove(rbl);
+		removeMouseListener(rbl);
 	}
 	
 	public Label newLabel(String name, int id, int x, int y) {

@@ -5,10 +5,6 @@ import java.awt.Font;
 import javax.swing.JFrame;
 
 import me.daniel.cwtk.widgets.Label;
-import me.daniel.cwtk.widgets.ListBox;
-import me.daniel.cwtk.widgets.events.EventType;
-import me.daniel.cwtk.widgets.events.WidgetEvent;
-import me.daniel.cwtk.widgets.events.WidgetListener;
 
 /*
  * This class implements a sample application using CWTK.
@@ -31,16 +27,7 @@ public class TestWindow {
 		for(int i = 0; i<options.length;i++) {
 			options[i] = "Option " + (i+1);
 		}
-		final ListBox lb = wm.newListBox("ListBox", 3, true, 10, 100, 150, 200, options);
-		lb.addListener(new WidgetListener() {
-			
-			@Override
-			public void run(WidgetEvent e) {
-				if(e.getEventType() == EventType.KEYPRESS) {
-					lb.addOption("Test");
-				}
-			}
-		});
+		wm.newListBox("ListBox", 3, true, 10, 100, 150, 200, options);
 		Label l = wm.newLabel("Label", 4, 55, 90);
 		l.setFont(new Font(Font.SERIF, Font.PLAIN, 48));
 		wm.newRadioButtonList("", 5, true, 10, 320, 400, 30, 10);

@@ -1,8 +1,14 @@
 package me.daniel.cwtk.widgets;
 
 import java.awt.Graphics;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
-public final class RadioButtonList extends Widget {
+import me.daniel.cwtk.widgets.events.EventType;
+import me.daniel.cwtk.widgets.events.WidgetEvent;
+import me.daniel.cwtk.widgets.events.WidgetListener;
+
+public final class RadioButtonList extends Widget implements MouseListener {
 	
 	private int numOptions = 0;
 	private int selected = 0;
@@ -17,13 +23,43 @@ public final class RadioButtonList extends Widget {
 		g.fillRect(getX(), getY(), getWidth(), getHeight());
 		g.setColor(getBorderNotfocusedColor());
 		g.drawRect(getX(), getY(), getWidth(), getHeight());
-		g.setColor(getBackgroundColor());
 		int tempx = getX() + 2;
 		int tempy = getY() + 10;
 		for(int i = 0; i < numOptions; i++) {
-			g.fillOval(tempx, tempy, getWidth()/numOptions/2, getWidth()/numOptions/2);
-			tempx+=getWidth()/numOptions/2+10;
+			if(i == selected) {
+				g.setColor(getTextHoveredColor());
+			} else {
+				g.setColor(getBackgroundColor());
+			}
+			g.fillOval(tempx, tempy-getHeight()/5, 16, 16);
+			tempx+=20;
 		}
 	}
 	
+	public int getSelected() {
+		return selected;
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		if(e.getX()>=getX() && e.getX()<=getX()+getWidth()) {
+			if(e.getY()>=getY() && e.getY()<=getY()+getHeight()) {
+				WidgetEvent we = new WidgetEvent(EventType.CLICK, this, e);
+				for(WidgetListener w : getListeners()) {
+					w.run(we);
+					if(we.isFinalCancelled()) break;
+				}
+				if(we.isCancelled()) return;
+				int x = -getX()/20 + e.getX()/20;
+				if(x > numOptions-1) x = numOptions-1;
+				if(x < 0) x = 0;
+				selected = x;
+			}
+		}
+	}
+	
+	public void mouseEntered(MouseEvent arg0) {}
+	public void mouseExited(MouseEvent arg0) {}
+	public void mousePressed(MouseEvent arg0) {}
+	public void mouseReleased(MouseEvent arg0) {}
 }
