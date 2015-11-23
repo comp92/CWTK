@@ -2,9 +2,7 @@ package me.daniel.cwtk;
 
 import java.awt.Canvas;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -19,10 +17,10 @@ import me.daniel.cwtk.widgets.RadioButtonList;
 import me.daniel.cwtk.widgets.TextBox;
 import me.daniel.cwtk.widgets.Widget;
 
-public class WidgetManager extends Canvas implements Runnable {
-	private static final long serialVersionUID = 1L;
+public class WidgetManager {
+	private static final double VERSION = 1.1d;
 	
-	private static final double VERSION = 0.58d;
+	private Canvas canvas;
 	
 	private final List<Button> buttons = new ArrayList<>();
 	private final List<TextBox> textboxes = new ArrayList<>();
@@ -35,13 +33,13 @@ public class WidgetManager extends Canvas implements Runnable {
 	public RadioButtonList newRadioButtonList(String title, int id, boolean enabled, int x, int y, int width, int height, int numOptions) {
 		RadioButtonList rbl = new RadioButtonList(title, id, enabled, x, y, width, height, numOptions);
 		radiobuttons.add(rbl);
-		addMouseListener(rbl);
+		canvas.addMouseListener(rbl);
 		return rbl;
 	}
 	
 	public void removeRadioButtonList(RadioButtonList rbl) {
 		radiobuttons.remove(rbl);
-		removeMouseListener(rbl);
+		canvas.removeMouseListener(rbl);
 	}
 	
 	public Label newLabel(String name, int id, int x, int y) {
@@ -57,14 +55,14 @@ public class WidgetManager extends Canvas implements Runnable {
 	public Button newButton(String name, int id, boolean enabled, int x, int y, int width, int height) {
 		Button b = new Button(name, id, enabled, x, y, width, height);
 		buttons.add(b);
-		addMouseListener(b);
-		addMouseMotionListener(b);
+		canvas.addMouseListener(b);
+		canvas.addMouseMotionListener(b);
 		return b;
 	}
 	
 	public void removeButton(Button b) {
-		removeMouseListener(b);
-		removeMouseMotionListener(b);
+		canvas.removeMouseListener(b);
+		canvas.removeMouseMotionListener(b);
 		buttons.remove(b);
 	}
 	
@@ -72,13 +70,13 @@ public class WidgetManager extends Canvas implements Runnable {
 		abstractWidgets.add(w);
 		Class<?> widgetClass = w.getClass();
 		if(MouseListener.class.isAssignableFrom(widgetClass)) {
-			addMouseListener((MouseListener) w);
+			canvas.addMouseListener((MouseListener) w);
 		}
 		if(KeyListener.class.isAssignableFrom(widgetClass)) {
-			addKeyListener((KeyListener) w);
+			canvas.addKeyListener((KeyListener) w);
 		}
 		if(MouseMotionListener.class.isAssignableFrom(widgetClass)) {
-			addMouseMotionListener((MouseMotionListener) w);
+			canvas.addMouseMotionListener((MouseMotionListener) w);
 		}
 	}
 	
@@ -86,59 +84,57 @@ public class WidgetManager extends Canvas implements Runnable {
 		abstractWidgets.remove(w);
 		Class<?> widgetClass = w.getClass();
 		if(MouseListener.class.isAssignableFrom(widgetClass)) {
-			removeMouseListener((MouseListener) w);
+			canvas.removeMouseListener((MouseListener) w);
 		}
 		if(KeyListener.class.isAssignableFrom(widgetClass)) {
-			removeKeyListener((KeyListener) w);
+			canvas.removeKeyListener((KeyListener) w);
 		}
 		if(MouseMotionListener.class.isAssignableFrom(widgetClass)) {
-			removeMouseMotionListener((MouseMotionListener) w);
+			canvas.removeMouseMotionListener((MouseMotionListener) w);
 		}
 	}
 	
 	public ListBox newListBox(String title, int id, boolean enabled, int x, int y, int width, int height, String[] options) {
 		ListBox lb = new ListBox(title, id, enabled, x, y, width, height, options);
 		listboxes.add(lb);
-		addMouseListener(lb);
-		addKeyListener(lb);
+		canvas.addMouseListener(lb);
+		canvas.addKeyListener(lb);
 		return lb;
 	}
 	
 	public void removeListBox(ListBox lb) {
-		removeMouseListener(lb);
-		removeKeyListener(lb);
+		canvas.removeMouseListener(lb);
+		canvas.removeKeyListener(lb);
 		listboxes.remove(lb);
 	}
 	
 	public TextBox newTextBox(String title, int id, boolean enabled, int x, int y, int width, int height) {
 		TextBox tb = new TextBox(title, id, enabled, x, y, width, height);
 		textboxes.add(tb);
-		addMouseListener(tb);
-		addKeyListener(tb);
+		canvas.addMouseListener(tb);
+		canvas.addKeyListener(tb);
 		return tb;
 	}
 	
 	public void removeTextBox(TextBox tb) {
-		removeMouseListener(tb);
-		removeKeyListener(tb);
+		canvas.removeMouseListener(tb);
+		canvas.removeKeyListener(tb);
 		textboxes.remove(tb);
 	}
 	
 	public Checkbox newCheckbox(String title, int id, boolean enabled, int x, int y, int width, int height) {
 		Checkbox b = new Checkbox(title, id, enabled, x, y, width, height);
 		checkboxes.add(b);
-		addMouseListener(b);
+		canvas.addMouseListener(b);
 		return b;
 	}
 	
 	public void removeCheckbox(Checkbox cb) {
-		removeMouseListener(cb);
+		canvas.removeMouseListener(cb);
 		checkboxes.remove(cb);
 	}
 	
 	public void paint(Graphics g) {
-		g.setColor(Color.BLACK);
-		g.fillRect(0, 0, getWidth(), getHeight());
 		for(Button b : buttons) {
 			b.paint(g);
 		}
@@ -168,34 +164,8 @@ public class WidgetManager extends Canvas implements Runnable {
 		}
 	}
 	
-	public WidgetManager() {
-		Thread t = new Thread(this);
-		t.start();
-	}
-	
-	public void update(Graphics g) {
-		Graphics offgc;
-	    Image offscreen = null;
-	    @SuppressWarnings("deprecation")
-		Dimension d = size();
-	    offscreen = createImage(d.width, d.height);
-	    offgc = offscreen.getGraphics();
-	    offgc.setColor(getBackground());
-	    offgc.fillRect(0, 0, d.width, d.height);
-	    offgc.setColor(getForeground());
-	    paint(offgc);
-	    g.drawImage(offscreen, 0, 0, this);
-	}
-	
-	public void run() {
-		while(true) {
-			try {
-				repaint();
-				Thread.sleep(17);
-			} catch(InterruptedException e) {
-				
-			}
-		}
+	public WidgetManager(Canvas c) {
+		this.canvas = c;
 	}
 	
 	public static String getInfo() {
