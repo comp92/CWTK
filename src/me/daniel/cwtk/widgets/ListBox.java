@@ -13,7 +13,7 @@ import me.daniel.cwtk.widgets.events.EventType;
 import me.daniel.cwtk.widgets.events.WidgetEvent;
 import me.daniel.cwtk.widgets.events.WidgetListener;
 
-public class ListBox extends Widget implements KeyListener, MouseListener {
+public final class ListBox extends Widget implements KeyListener, MouseListener {
 	private List<String> options = new ArrayList<>();
 	private int selected = 0;
 	
