@@ -1,11 +1,11 @@
-package me.daniel.cwtk.widgets;
+package me.daniel.dwtk.widgets;
 
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
 
-import me.daniel.cwtk.widgets.events.WidgetListener;
+import me.daniel.dwtk.widgets.events.WidgetListener;
 
 //The parent class of all widgets
 public abstract class Widget {

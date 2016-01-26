@@ -1,4 +1,4 @@
-package me.daniel.cwtk.widgets;
+package me.daniel.dwtk.widgets;
 
 import java.awt.Color;
 import java.awt.Font;

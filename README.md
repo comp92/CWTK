@@ -1,7 +1,7 @@
-# CWTK
+# DWTK
 
 ###What is it?
-CWTK - or Comp's Widget Tool Kit - is a tool kit for creating commonly used GUI widgets (buttons, textboxes, etc) in your Java 2D Canvas application.
+DWTK - or Daniel's Widget Tool Kit - is a tool kit for creating commonly used GUI widgets (buttons, textboxes, etc) in your Java 2D Canvas application.
 
 ###What is provided:
 * Buttons
@@ -15,4 +15,4 @@ CWTK - or Comp's Widget Tool Kit - is a tool kit for creating commonly used GUI 
 
 ###How do I use this library?
 Reference the cwtk.jar file in your project, create an instance of the WidgetManager, and add as many widgets as you desire.
-See https://github.com/comp92/CWTK-Example for an example program.
+See https://github.com/dashaw92/DWTK-Example for an example program.

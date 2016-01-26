@@ -1,8 +1,8 @@
-package me.daniel.cwtk.widgets.events;
+package me.daniel.dwtk.widgets.events;
 
 import java.awt.AWTEvent;
 
-import me.daniel.cwtk.widgets.Widget;
+import me.daniel.dwtk.widgets.Widget;
 
 //The parent class of all widget events
 /**

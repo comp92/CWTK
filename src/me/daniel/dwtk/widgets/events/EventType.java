@@ -1,4 +1,4 @@
-package me.daniel.cwtk.widgets.events;
+package me.daniel.dwtk.widgets.events;
 
 public enum EventType {
 	/*
