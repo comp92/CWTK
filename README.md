@@ -1,5 +1,10 @@
 # DWTK
 
+Upcoming:
+
+* More widgets! (:D)
+* More efficient code (cough WidgetManager's List<Widget> cough...)
+
 ###What is it?
 DWTK - or Daniel's Widget Tool Kit - is a tool kit for creating commonly used GUI widgets (buttons, textboxes, etc) in your Java 2D Canvas application.
 
